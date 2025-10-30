@@ -54,6 +54,8 @@ function passarAno() {
     passarMes();
     salarioAnual.innerText = salario * 12 - despesasMensaisConstantes * 12;
     despesasAnuais.innerText = despesasMensaisConstantes * 12;
+    historicoDespesas.innerHTML = '';
+    todasDespesas = [];
 }
 
 function adicionarDespesaConstante() {
@@ -84,10 +86,25 @@ function adicionarDespesa() {
     salarioAnual.innerText = parseFloat(salarioAnual.innerText) - despesas;
     despesasAnuais.innerText = parseFloat(despesasAnuais.innerText) + despesas;
 
-    todasDespesas.push("-" + despesas);
+    todasDespesas.push(despesas);
 
     inputDespesas.value = '';
 }
+
+function removerDespesa(despesa) {
+    const valor = parseFloat(despesa.firstChild.innerText);
+    salarioMensal.innerText = parseFloat(salarioMensal.innerText) + valor;
+    salarioAnual.innerText = parseFloat(salarioAnual.innerText) + valor;
+    despesasMensais.innerText = parseFloat(despesasMensais.innerText) + valor;
+    despesasAnuais.innerText = parseFloat(despesasAnuais.innerText) + valor;
+    despesa.remove();
+    todasDespesas.forEach((element, index) => {
+        if (element == valor) {
+            todasDespesas.splice(index, 1);
+        }
+    });
+}
+
 
 function atualizarHistorico() {
     if(historicoDespesas.children.length == 0){
@@ -101,6 +118,7 @@ function atualizarHistorico() {
 
             elementoBotao.innerText = 'Remover';
             elementoBotao.classList.add('button-remove');
+            elementoBotao.addEventListener('click', () => removerDespesa(elementoLista));
             elementoLista.appendChild(elementoBotao);
 
             historicoDespesas.appendChild(elementoLista);
