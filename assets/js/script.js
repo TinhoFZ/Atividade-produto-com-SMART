@@ -95,8 +95,8 @@ function removerDespesa(despesa) {
     const valor = parseFloat(despesa.firstChild.innerText);
     salarioMensal.innerText = parseFloat(salarioMensal.innerText) + valor;
     salarioAnual.innerText = parseFloat(salarioAnual.innerText) + valor;
-    despesasMensais.innerText = parseFloat(despesasMensais.innerText) + valor;
-    despesasAnuais.innerText = parseFloat(despesasAnuais.innerText) + valor;
+    despesasMensais.innerText = parseFloat(despesasMensais.innerText) - valor;
+    despesasAnuais.innerText = parseFloat(despesasAnuais.innerText) - valor;
     despesa.remove();
     todasDespesas.forEach((element, index) => {
         if (element == valor) {
